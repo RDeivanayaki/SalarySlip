@@ -1,0 +1,38 @@
+<article class="container">
+  <section class="create" >
+    <div class="row">
+    <div class="mb-3" >
+      <div class="col-md-12">
+    <h1>Sign Up</h1>
+    </div>
+  </div>
+  </div>
+    <form>
+
+  <div class="mb-3">
+
+      <label class="col-sm-2 col-form-label">User Name:</label>
+
+      <input type="text" class="col-sm-3" [(ngModel)]="userName" name="userName">
+
+</div>
+
+<div class="mb-3">
+
+  <label class="col-sm-2 col-form-label">Password:</label>
+
+  <input type="text" class="col-sm-3" [(ngModel)]="password" name="password" type="password">
+
+</div>
+
+
+<div class="mb-3">
+  <mat-spinner *ngIf="islogin"></mat-spinner>
+  <button class="btn btn-primary offset-md-2 col-sm-1"  (click)="onClick()">Sign Up</button>
+
+  <button class="btn btn-primary offset-md-1 col-sm-1" (click)="onCancel()" >Cancel</button>
+
+</div>
+</form>
+  </section>
+  </article>
