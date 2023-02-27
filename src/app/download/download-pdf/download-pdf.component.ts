@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { SalarySlipService } from "src/app/salaryslip.service";
-import { NotificationService } from 'src/app/notification.service';
+import { SalarySlipService } from "src/app/services/salaryslip.service";
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-download-pdf',

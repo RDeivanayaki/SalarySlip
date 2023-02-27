@@ -1,0 +1,111 @@
+
+
+<div class="container"><!--</div> min-vh-100 d-flex justify-content-center align-items-center">-->
+<div class="box">
+
+
+<h1>Salary Slip</h1>
+  <!--<input type="file" (change)="onFileUpload($event)" multiple="false" />-->
+
+  <div class="mb-3">
+
+      <label class="col-sm-2 col-form-label">Month:</label>
+
+
+    <select [(ngModel)]="month" class="col-sm-3">
+      <option>--Select--</option>
+      <option *ngFor="let month of monthList">
+        {{month.Month}}
+      </option>
+    </select>
+
+</div>
+
+  <div class="mb-3">
+
+    <label class="col-sm-2 col-form-label">Year:</label>
+  <select [(ngModel)]="year" class="col-sm-3">
+    <option>--Select--</option>
+    <option *ngFor="let year of yearList">
+      {{year.Year}}
+    </option>
+  </select>
+  </div>
+<app-upload-excel (eventEmitter)="receiveMessage($event)"></app-upload-excel>
+
+<div >
+  <mat-spinner *ngIf="isGenerating"></mat-spinner>
+  <div class="col-sm-1">
+
+  </div>
+  <div>
+  <button class="btn btn-primary col-sm-3" (click)="OnClick()">Generate Salary Slip</button>
+  </div>
+  <div class="col-sm-1">
+
+  </div>
+</div>
+</div>
+</div>
+
+<app-download-pdf></app-download-pdf>
+
+<!--<article class="container container-fluid">
+  <form>-
+<div class="form-group">-->
+  <!--<div class="row mt-5">
+    <div class="col-md-4">
+      <div class="mb-3">-->
+
+        <!--<input type="file" (change)="onFileUpload($event)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" multiple="false"/>-->
+        <!--<div class="d-flex justify-content-center">
+
+      <div>
+        <input type="file" #file placeholder="Choose File" (change)="onFileUpload($event)" style="display:none">
+        <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
+      </div>
+      </div>
+
+      <div class="d-flex justify-content-center">-->
+      <!--</div>
+    </div>
+  </div>-->
+ <!--</div>-->
+
+
+<!--<div class="row mt-5">
+<div class="col-sm-5">
+  <div>
+  <label>Month:</label>
+  </div>
+  </div>
+
+  <div class="col-sm-5">
+  <select [(ngModel)]="month">
+    <option>--Select--</option>
+    <option *ngFor="let month of monthList">
+      {{month.Month}}
+    </option>
+  </select>
+</div>-->
+<!--</div>
+<br>
+<br>
+<div>
+  <label>Year:</label>
+  <select [(ngModel)]="year">
+    <option>--Select--</option>
+    <option *ngFor="let year of yearList">
+      {{year.Year}}
+    </option>
+</select>
+</div>
+
+<div>
+<button class="btn btn-primary" [disabled]="errorMsg" (click)="OnClick()">Generate Salary Slip</button>
+</div>
+</div>
+
+</form>
+</article>-->
+<!--<h2>Excel file selection</h2>-->

@@ -4,8 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UploadExcelComponent } from './upload/upload-excel/upload-excel.component';
-import { SalarySlipService } from './salaryslip.service';
-import { HttpClientModule } from '@angular/common/http';
+import { SalarySlipService } from './services/salaryslip.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DownloadPdfComponent } from './download/download-pdf/download-pdf.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,6 +20,7 @@ import { UserLoginComponent } from './user/userlogin/userlogin.component';
 import { PasswordChangeComponent } from './user/passwordchange/passwordchange.component';
 import { SalarySlipComponent } from './salaryslip/salaryslip.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 
 @NgModule({
@@ -48,7 +49,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ToastrModule.forRoot()
 
   ],
-  providers: [SalarySlipService],
+  providers: [{
+    provide:HTTP_INTERCEPTORS,
+    useClass:TokenInterceptor,
+    multi:true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

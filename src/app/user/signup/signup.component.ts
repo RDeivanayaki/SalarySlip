@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { SalarySlipService } from "src/app/salaryslip.service";
-import { NotificationService } from "src/app/notification.service";
+import { AuthService } from "src/app/services/auth.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
   selector: 'app-signup',
@@ -11,34 +11,43 @@ import { NotificationService } from "src/app/notification.service";
 
 export class SignupComponent{
 
-  constructor(private salaryslipService: SalarySlipService,private notificationService: NotificationService){
+  constructor(private authService: AuthService,private notificationService: NotificationService){
 
   }
-  islogin:boolean=false;
-  userName="";
-  password="";
+
+  userName:string="";
+  password:string="";
 
   onClick(){
     //console.warn(this.userName);
     //console.warn(this.password);
     if(this.userName.length > 0 && this.password.length > 0)
     {
-      this.islogin=true;
-      this.addUser();
+
+      this.signUp();
       this.OnReset();
     }
 
   }
 
-addUser(){
+signUp(){
     var val={
     "userId":0,
     "userName":this.userName,
     "password":this.password,
-    "userRole":""
+    "userRole":"",
+    "token":""
   }
+  this.authService.signUp(val).subscribe({
+    next: (res:any) =>{
+      this.notificationService.showSuccess("<hr>" + res.Message,"Success!");
+    },
+    error: (err) => {
+      this.notificationService.showError("<hr>" + err.error,"Error!");
+    }
+  })
 
-  this.salaryslipService.addUser(val).subscribe((res:any) =>{
+  /*this.authService.signUp(val).subscribe((res:any) =>{
     if(JSON.parse(JSON.stringify(res)).Value === "Success")
     {
       this.notificationService.showSuccess("<hr>User Created Successfully!","Success!");
@@ -50,17 +59,13 @@ addUser(){
 
       this.notificationService.showError("<hr>" + msg + ", Unable to create user","Error!");
     }
-  },(err) => {console.warn(err)});
+  },(err:any) => {console.warn(err)});*/
 
 }
-
-  onCancel(){
-    this.OnReset();
-  }
 
   OnReset(){
     this.userName="";
     this.password="";
-    this.islogin=false;
+
   }
 }

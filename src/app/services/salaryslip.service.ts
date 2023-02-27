@@ -34,13 +34,7 @@ downloadpdf(){
   {observe:'response',responseType:'blob'})
 }
 
-addUser(val:any){
-  return this.http.post(environment.apiUrl + "/Userlist",val);
-}
 
-onLogin(val:any){
-  return(this.http.post(environment.apiUrl + "/UserLoginDetail",val));
-}
 
 
 }
