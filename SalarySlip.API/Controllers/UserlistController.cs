@@ -15,11 +15,21 @@ namespace SalarySlip.API.Controllers
             _userlistRepository = userlistRepository;
         }
 
-        [HttpPost]
-        public IActionResult AddUser(Userlist user)
+        [HttpPost("register")]
+        public IActionResult Register(Userlist user)
         {
             string msg = _userlistRepository.Add(user);
-            return Ok(new JsonResult(msg));
+            if (msg == "Registration successful")
+            {
+                return Ok(new
+                {
+                    Message = msg
+                });
+            }
+            else
+            {
+                return BadRequest(msg);
+            }
         }
     }
 }

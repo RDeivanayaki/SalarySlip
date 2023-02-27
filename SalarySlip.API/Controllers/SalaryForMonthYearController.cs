@@ -4,6 +4,7 @@ using PdfSharpCore;
 using SalarySlip.API.Models.Domain;
 using SalarySlip.API.Repositories;
 using TheArtOfDev.HtmlRenderer.PdfSharp;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SalarySlip.API.Controllers
 {
@@ -28,6 +29,7 @@ namespace SalarySlip.API.Controllers
             return Ok(Json(msg));
         }
 
+        [Authorize]
         [HttpGet("generatepdf")]
         public IActionResult GeneratePDF()
         {

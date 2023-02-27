@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using SalarySlip.API.Helpers;
 using SalarySlip.API.Models.Domain;
 using System.ComponentModel;
 using System.Data;
@@ -35,9 +36,12 @@ namespace SalarySlip.API.Repositories
             SqlCommand cmd = new SqlCommand("usp_AddUser", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Clear();
+
+            string password = PasswordHasher.HashPassword(user.Password);
             //cmd.Parameters.AddWithValue("@UserId", userId);
             cmd.Parameters.AddWithValue("@UserName", user.UserName);
-            cmd.Parameters.AddWithValue("@Password",user.Password);
+            cmd.Parameters.AddWithValue("@Password", password);
+            
             cmd.Parameters.Add("@Result",SqlDbType.Bit);
             cmd.Parameters["@Result"].Direction = ParameterDirection.Output;
             //int rowsAffected = 0; 
@@ -51,7 +55,7 @@ namespace SalarySlip.API.Repositories
                 bool result = Convert.ToBoolean(cmd.Parameters["@Result"].Value);
                 
                 if (result)
-                    msg = "Success";
+                    msg = "Registration successful";
                 else
                     msg = "User exists already!";
             }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SalarySlip.API.Repositories;
 
 namespace SalarySlip.API.Controllers
@@ -13,8 +14,8 @@ namespace SalarySlip.API.Controllers
             _yearlistRepository = yearlistRepository;
         }
 
+        [Authorize]
         [HttpGet]
-
         public IActionResult GetAllYears()
         {
             var yearlist = _yearlistRepository.GetAll();

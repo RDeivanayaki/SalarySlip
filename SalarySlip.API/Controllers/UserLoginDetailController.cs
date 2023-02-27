@@ -15,10 +15,20 @@ namespace SalarySlip.API.Controllers
             _userLoginDetailRepository = userLoginDetailRepository;
         }
 
-        [HttpPost]
-        public IActionResult AddUserLoginDetail(Userlist user)
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody] Userlist user)
         {
-            return Ok(new JsonResult(_userLoginDetailRepository.Login(user)));
+            string msg = _userLoginDetailRepository.Login(user);
+            if (msg == "Login Success")
+                return Ok(new
+                {
+                    Token = user.Token,
+                    Message = msg
+                });
+            else
+            {
+               return BadRequest(msg);
+            }
         }
     }
 }

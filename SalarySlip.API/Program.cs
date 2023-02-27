@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using SalarySlip.API.Repositories;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +27,26 @@ builder.Services.AddScoped<ISalaryForMonthYearRepository, SalaryForMonthYearRepo
 builder.Services.AddScoped<IUserlistRepository, UserlistRepository>();
 builder.Services.AddScoped<IUserLoginDetailRepository,UserLoginDetailRepository>();
 
+//By Deiva
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("veryverysecret.....")),
+        ValidateAudience = false,
+        ValidateIssuer = false,
+        ClockSkew = TimeSpan.Zero
+    };
+});
+//
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -41,6 +64,8 @@ app.UseCors(x => x
             .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader().WithExposedHeaders("Content-Disposition")); //By Deiva
+
+app.UseAuthentication(); //By Deiva
 app.UseAuthorization();
 
 app.MapControllers();

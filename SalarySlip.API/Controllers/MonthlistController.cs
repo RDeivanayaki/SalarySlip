@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SalarySlip.API.Repositories;
 
 namespace SalarySlip.API.Controllers
@@ -14,6 +15,7 @@ namespace SalarySlip.API.Controllers
             _monthlistRepository = monthlistRepository;
         }
 
+        [Authorize]
         [HttpGet]
 
         public IActionResult GetAllMonths()
